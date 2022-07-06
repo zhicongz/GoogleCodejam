@@ -1,0 +1,29 @@
+Q1
+Everytime, pop the least delicious pancake on the two ends
+```
+from collections import deque
+
+def foo(s): # deque
+    res,cur = 0,-1
+    while s:
+        if s[0]>=s[-1]:
+            temp = s.pop()
+        else:
+            temp = s.popleft()
+        if temp >= cur:
+            res, cur = res+1, temp
+    
+    return res
+    
+num_cases = int(input())
+for case in range(1,num_cases+1):
+    N = input()
+    s = deque([int(i) for i in input().split(" ")])
+    res = foo(s)
+    print('Case #%s: %s' %(case,res))
+```
+
+Q2
+The case1 solution is misleading. The optimal solution is that for each customer, we either pump air in ascending order or decending is the optimal solutions 
+```
+```
