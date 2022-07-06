@@ -24,6 +24,49 @@ for case in range(1,num_cases+1):
 ```
 
 Q2
-The case1 solution is misleading. The optimal solution is that for each customer, we either pump air in ascending order or decending is the optimal solutions 
+The case1 solution is misleading. The optimal solution is that for each customer, 
+we either pump air in ascending order or decending is the optimal solutions. O(N+P)
 ```
+## for each customer, record total cost and out pressures.
+## O(NP^2)
+def foo(P,stack):
+    cur = [[0,0] for _ in range(2)] ## [cur pressure, total]
+    for s in stack:
+        mi,ma = min(s),max(s)
+        nxt = [[mi,float("inf")],[ma,float("inf")]]
+        for pre,total in cur:
+            nxt[0][1] = min(nxt[0][1], one_time(pre,mi,mi,ma)+total)
+            nxt[1][1] = min(nxt[1][1], one_time(pre,ma,mi,ma)+total)
+        cur = nxt
+    return min(cur[0][1], cur[1][1])
+
+def one_time(a,b,mi,ma): ## [in,out,min,max]
+    x = abs(ma-a)+ma-mi+b-mi
+    y = abs(mi-a)+ma-mi+ma-b
+    return min(x,y)
+    
+num_cases = int(input())
+for case in range(1,num_cases+1):
+    [N,P] = [int(i) for i in input().split(" ")]
+    s = [[int(i) for i in input().split(" ")] for _ in range(N)]
+    res = foo(P, s)
+    print('Case #%s: %s' %(case,res))
+```
+
+Q3
+Only solved the first test case
+```
+def gen(t):
+    x = [1]*t + [0]*(8-t)
+    return "".join(str(i) for i in x)
+    
+num_cases = int(input())
+
+for case in range(1,num_cases+1):
+    t = 0
+    while True:
+        print(gen(t))
+        t = int(input())
+        if t <= 0:
+            break 
 ```
